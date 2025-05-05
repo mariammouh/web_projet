@@ -30,6 +30,9 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
+        if (auth()->user()->role == 'admin') {
+            return route('admin.dashboard');  // or your custom admin route
+        }
         $userId = Auth::id(); // or Auth::user()->id
         return '/watch/' . $userId;
     }
