@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Mini pp</title>
+    <title>Watch it</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -307,6 +307,8 @@ left: 0%;border-radius: 5px;
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                   Watch it 
                 <a class="navbar-brand" href="{{ url('/') }}">
                    Mini projects
                 </a>
