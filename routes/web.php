@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WatchController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Auth;
@@ -34,25 +35,17 @@ Route::delete('/watch/{id}', 'App\Http\Controllers\WatchController@destroy')->na
 Route::post('/top_watch', 'App\Http\Controllers\WatchController@top_watch')->name('top_watch')->middleware('auth');
 
 // routes/web.php
-<<<<<<< HEAD
-//details
-Route::get('/film/details/{id}', 'App\Http\Controllers\WatchController@showFilm')->name('film.details');
-Route::get('/show/details/{id}', 'App\Http\Controllers\WatchController@showTV')->name('show.details');
-
-=======
+Route::get('/film/details/{id}', [WatchController::class, 'showFilm'])->name('film.details');
+Route::get('/show/details/{id}', [WatchController::class, 'showTV'])->name('show.details');
 
 // User routes (default)
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Admin routes
 Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
-<<<<<<< HEAD
-=======
     Route::get('/archive', [App\Http\Controllers\Admin\ArchiveController::class, 'index'])->name('admin.archive');
     Route::post('/archive/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add'])->name('admin.archive.add');
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
 });
 
 Auth::routes();
