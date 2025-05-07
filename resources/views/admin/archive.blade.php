@@ -141,10 +141,36 @@
                 <label class="form-control-label">Production Company</label>
                 <input class="form-control" type="text" name="production_company">
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <label class="form-control-label">Main Leads</label>
-                <input class="form-control" type="text" name="main_leads">
+                <div class="row">
+                  @foreach ($actors as $actor)
+                    <div class="col-md-4">
+                      <div class="card mb-3">
+                        <div class="row g-0">
+                          <div class="col-4">
+                            <img src="{{ $actor->image }}" class="img-fluid rounded-start" alt="{{ $actor->name }}">
+                          </div>
+                          <div class="col-8">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ $actor->name }}</h5>
+                              <p class="card-text mb-1"><strong>Date de naissance:</strong> {{ $actor->birth_date }}</p>
+                              <p class="card-text mb-1"><strong>Nationalité:</strong> {{ $actor->nationality }}</p>
+                              <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" name="main_leads[]" value="{{ $actor->id }}" id="actor{{ $actor->id }}">
+                                <label class="form-check-label" for="actor{{ $actor->id }}">
+                                  Sélectionner
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  @endforeach
+                </div>
               </div>
+              
             </div>
   
             <hr class="horizontal dark">
@@ -246,6 +272,73 @@
         </div>
       </div>
     </div>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <div class="d-flex align-items-center">
+              <p class="mb-0">Add New Actor</p>
+              <button class="btn btn-danger btn-sm ms-auto" onclick="clearForm('actorForm')">Empty</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <form action="{{ url('/admin/actors/add') }}" id="actorForm" method="POST" enctype="multipart/form-data">
+              @csrf
+              <!-- Actor Information Fields -->
+              <p class="text-uppercase text-sm">Actor Information</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="form-control-label">Name</label>
+                  <input class="form-control" type="text" name="name" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-control-label">Birth Date</label>
+                  <input class="form-control" type="date" name="birth_date" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-control-label">Nationality</label>
+                  <input class="form-control" type="text" name="nationality" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-control-label d-block mb-2">Upload Image</label>
+                  <div class="input-group">
+                    <label class="input-group-text bg-gradient-primary text-white" for="actorImage">
+                      <i class="fas fa-upload me-2"></i> Choose Image
+                    </label>
+                    <input class="form-control" type="file" name="image" id="actorImage" accept="image/*" hidden onchange="updateImageLabel(this)">
+                  </div>
+                </div>
+              </div>
+    
+            
+    
+          
+    
+              <button type="submit" class="btn btn-primary mt-4">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      function updateImageLabel(input) {
+        const label = input.previousElementSibling;
+        const fileName = input.files[0] ? input.files[0].name : 'Choose image';
+        label.innerHTML = `<i class="fas fa-upload me-2"></i> ${fileName}`;
+      }
+    
+      function clearForm(formId) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        form.reset(); // Resets all fields to default values
+      }
+    </script>
+    
+
+
+
+
   </div>
   <script>
     function toggleForm() {

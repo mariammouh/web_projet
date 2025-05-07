@@ -47,6 +47,7 @@ Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
     Route::get('/archive', [App\Http\Controllers\Admin\ArchiveController::class, 'index'])->name('admin.archive');
     Route::post('/archive/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add'])->name('admin.archive.add');
 });
+Route::post('/admin/actors/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add_actor'])->name('admin.actors.add');
 
 Auth::routes();
 
