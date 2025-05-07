@@ -13,11 +13,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-<<<<<<< HEAD
-          <a class="nav-link active" href="../pages/dashboard.html">
-=======
           <a class="nav-link active" href="{{ url('admin/dashboard') }}">
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
             </div>
@@ -25,11 +21,7 @@
           </a>
         </li>
         <li class="nav-item">
-<<<<<<< HEAD
-          <a class="nav-link " href="../pages/tables.html">
-=======
           <a class="nav-link " href="{{ url('admin/archive') }}">
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-archive-2 text-dark text-sm opacity-10"></i>
             </div>
@@ -89,11 +81,7 @@
         </li>
       </ul>
     </div>
-<<<<<<< HEAD
-    <div class="sidenav-footer mx-3 ">
-=======
   {{--   <div class="sidenav-footer mx-3 ">
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
       <div class="card card-plain shadow-none" id="sidenavCard">
         <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
         <div class="card-body text-center p-3 w-100 pt-0">
@@ -105,11 +93,7 @@
       </div>
       <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
       <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-<<<<<<< HEAD
-    </div>
-=======
     </div> --}}
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
   </aside>
 @endsection
 @section('content')
@@ -123,15 +107,6 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="numbers">
-<<<<<<< HEAD
-                      <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
-                      <h5 class="font-weight-bolder">
-                        $53,000
-                      </h5>
-                      <p class="mb-0">
-                        <span class="text-success text-sm font-weight-bolder">+55%</span>
-                        since yesterday
-=======
                       <p class="text-sm mb-0 text-uppercase font-weight-bold">Users </p>
                       <h5 class="font-weight-bolder">
                         {{$userCount}}
@@ -139,17 +114,12 @@
                       <p class="mb-0">
                         <span class="text-success text-sm font-weight-bolder">{{ $userChange < 0 ? $userChange : '+' . $userChange }}%</span>
                         since last month
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                       </p>
                     </div>
                   </div>
                   <div class="col-4 text-end">
                     <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-<<<<<<< HEAD
-                      <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-=======
                       <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                     </div>
                   </div>
                 </div>
@@ -162,15 +132,6 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="numbers">
-<<<<<<< HEAD
-                      <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
-                      <h5 class="font-weight-bolder">
-                        2,300
-                      </h5>
-                      <p class="mb-0">
-                        <span class="text-success text-sm font-weight-bolder">+3%</span>
-                        since last week
-=======
                       <p class="text-sm mb-0 text-uppercase font-weight-bold">Films</p>
                       <h5 class="font-weight-bolder">
                         {{ $filmCount }}
@@ -178,18 +139,13 @@
                       <p class="mb-0">
                         <span class="text-success text-sm font-weight-bolder">{{ $filmChange < 0 ? $filmChange : '+' . $filmChange }}%</span>
                         since last month
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                       </p>
                     </div>
                   </div>
                   <div class="col-4 text-end">
                     <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-<<<<<<< HEAD
-                      <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-=======
                       <i class="fa-solid fa-film text-lg opacity-10" aria-hidden="true"></i>
                       
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                     </div>
                   </div>
                 </div>
@@ -202,15 +158,6 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="numbers">
-<<<<<<< HEAD
-                      <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
-                      <h5 class="font-weight-bolder">
-                        +3,462
-                      </h5>
-                      <p class="mb-0">
-                        <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                        since last quarter
-=======
                       <p class="text-sm mb-0 text-uppercase font-weight-bold">Shows</p>
                       <h5 class="font-weight-bolder">
                         {{ $showCount }}
@@ -218,18 +165,13 @@
                       <p class="mb-0">
                         <span class="text-danger text-sm font-weight-bolder">{{ $showChange < 0 ? $showChange : '+' . $showChange }}%</span>
                         since last month
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                       </p>
                     </div>
                   </div>
                   <div class="col-4 text-end">
                     <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-<<<<<<< HEAD
-                      <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-=======
                       <i class="ni ni-tablet-button text-lg opacity-10" aria-hidden="true"></i>
                       
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                     </div>
                   </div>
                 </div>
@@ -242,11 +184,7 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="numbers">
-<<<<<<< HEAD
-                      <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
-=======
                       <p class="text-sm mb-0 text-uppercase font-weight-bold">Flags</p>
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                       <h5 class="font-weight-bolder">
                         $103,430
                       </h5>
@@ -257,11 +195,7 @@
                   </div>
                   <div class="col-4 text-end">
                     <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-<<<<<<< HEAD
-                      <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-=======
                       <i class="fa-solid fa-triangle-exclamation text-lg opacity-10" aria-hidden="true"></i>
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                     </div>
                   </div>
                 </div>
@@ -272,22 +206,6 @@
         <div class="row mt-4">
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card z-index-2 h-100">
-<<<<<<< HEAD
-              <div class="card-header pb-0 pt-3 bg-transparent">
-                <h6 class="text-capitalize">Sales overview</h6>
-                <p class="text-sm mb-0">
-                  <i class="fa fa-arrow-up text-success"></i>
-                  <span class="font-weight-bold">4% more</span> in 2021
-                </p>
-              </div>
-              <div class="card-body p-3">
-                <div class="chart">
-                  <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-=======
                 <div class="card-header pb-0 pt-3 bg-transparent">
                     <h6 class="text-capitalize">User Registration Overview</h6>
                     <p class="text-sm mb-0">
@@ -305,46 +223,28 @@
         
       
         
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
           <div class="col-lg-5">
             <div class="card card-carousel overflow-hidden h-100 p-0">
               <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
                 <div class="carousel-inner border-radius-lg h-100">
-<<<<<<< HEAD
-                  <div class="carousel-item h-100 active" style="background-image: url('../assets/img/carousel-1.jpg');
-=======
                   <div class="carousel-item h-100 active" style="background-image: url('../assets/img/admin.jpeg');
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
         background-size: cover;">
                     <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                       <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                         <i class="ni ni-camera-compact text-dark opacity-10"></i>
                       </div>
-<<<<<<< HEAD
-                      <h5 class="text-white mb-1">Get started with Argon</h5>
-                      <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
-                    </div>
-                  </div>
-                  <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-2.jpg');
-=======
                       <h5 class="text-white mb-1">Manage your website</h5>
                       <p>Welcome to the Admin Dashboard! Here, you can manage user reviews, ratings, and discussions about films and shows</p>
                     </div>
                   </div>
                   <div class="carousel-item h-100" style="background-image: url('../assets/img/back.jpeg');
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
         background-size: cover;">
                     <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                       <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                         <i class="ni ni-bulb-61 text-dark opacity-10"></i>
                       </div>
-<<<<<<< HEAD
-                      <h5 class="text-white mb-1">Faster way to create web pages</h5>
-                      <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
-=======
                       <h5 class="text-white mb-1">Manage your website</h5>
                       <p>This website provides all the tools you need to ensure your users have the best possible experience.</p>
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
                     </div>
                   </div>
                   <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-3.jpg');
@@ -370,11 +270,7 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
         <div class="row mt-4">
-=======
-       {{--  <div class="row mt-4">
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card ">
               <div class="card-header pb-0 p-3">
@@ -581,11 +477,7 @@
               </div>
             </div>
           </div>
-<<<<<<< HEAD
         </div>
-@endsection
-=======
-        </div> --}}
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -681,4 +573,3 @@
 @endsection
 
 
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
