@@ -184,7 +184,7 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="numbers">
-                      <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                      <p class="text-sm mb-0 text-uppercase font-weight-bold">Flags</p>
                       <h5 class="font-weight-bolder">
                         $103,430
                       </h5>
@@ -478,14 +478,17 @@
             </div>
           </div>
         </div>
-@endsection
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
   console.log("Labels:", @json($monthLabels));
   console.log("User values:", @json($userCountValues));
 </script>
-
+<script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
 <!-- Your custom chart script must come after -->
 <script>
   const ctx1 = document.getElementById("chart-line").getContext("2d");
@@ -565,4 +568,8 @@
       },
   });
 </script>
+<script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+@endsection
+
 
