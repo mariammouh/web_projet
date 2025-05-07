@@ -1,0 +1,636 @@
+
+/* Variables et effet de dégradé global */
+:root {
+    --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    --secondary-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    --accent-color: #ff4d94;
+    --text-color: #333;
+    --light-bg: #f9f9f9;
+    --dark-bg: #1a1a2e;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --shadow-color: rgba(106, 17, 203, 0.2);
+}
+
+body {
+    background-image: linear-gradient(to bottom right, #e0e0e0 0%, #f9f9f9 50%, #e0e0e0 100%);
+    background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 15px;
+    position: relative;
+}
+
+/* Effet de film strip décoratif */
+.container::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-image: repeating-linear-gradient(90deg, 
+        #000 0px, #000 15px, 
+        transparent 15px, transparent 30px);
+    z-index: 1;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background-image: repeating-linear-gradient(90deg, 
+        #000 0px, #000 15px, 
+        transparent 15px, transparent 30px);
+    z-index: 1;
+}
+
+/* Style principal avec effet de glassmorphism */
+.details {
+    background-color: var(--card-bg);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--shadow-color), 
+                0 -5px 20px rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Effet de spotlight qui suit le curseur */
+.details::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, 
+        rgba(255, 77, 148, 0.3) 0%, 
+        rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.details:hover::before {
+    opacity: 1;
+    animation: spotlight 4s infinite;
+}
+
+@keyframes spotlight {
+    0%, 100% { transform: translate(100px, 100px); }
+    25% { transform: translate(calc(100% - 100px), 100px); }
+    50% { transform: translate(calc(100% - 100px), calc(100% - 100px)); }
+    75% { transform: translate(100px, calc(100% - 100px)); }
+}
+
+/* Titre de film avec effet de texte néon */
+.film-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+    background-image: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
+    letter-spacing: 1px;
+    transform: perspective(500px) rotateX(10deg);
+    padding-bottom: 10px;
+}
+
+.film-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-image: var(--primary-gradient);
+    border-radius: 4px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scaleX(1); }
+    50% { opacity: 0.7; transform: scaleX(0.95); }
+}
+
+/* Contenu avec grid layout responsive */
+.film-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .film-content-wrapper {
+        grid-template-columns: 300px 1fr;
+        gap: 40px;
+    }
+}
+
+/* Poster avec effets 3D et overlay */
+.film-poster {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.film-poster:hover {
+    transform: perspective(1000px) rotateY(5deg) rotateX(5deg);
+}
+
+.film-poster img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: all 0.5s ease;
+}
+
+.film-poster::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        180deg, 
+        rgba(26, 26, 46, 0) 0%, 
+        rgba(26, 26, 46, 0.8) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.film-poster:hover::before {
+    opacity: 1;
+}
+
+.film-poster::after {
+    content: '★';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 3rem;
+    color: var(--accent-color);
+    opacity: 0;
+    transform: translateY(20px) rotate(0deg);
+    transition: all 0.5s ease;
+    text-shadow: 0 0 10px rgba(255, 77, 148, 0.7);
+}
+
+.film-poster:hover::after {
+    opacity: 1;
+    transform: translateY(0) rotate(20deg);
+}
+
+/* Info cards avec effets et animations */
+.film-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.film-info {
+    position: relative;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    overflow: hidden;
+}
+
+.film-info:hover {
+    transform: translateX(5px);
+    border-left: 4px solid var(--accent-color);
+}
+
+.film-info strong {
+    display: inline-block;
+    font-weight: 700;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.film-info strong::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: rgba(255, 77, 148, 0.2);
+    z-index: -1;
+    border-radius: 4px;
+}
+
+/* Plot summary avec style special */
+.plot-summary {
+    margin: 40px 0;
+    padding: 30px;
+    background-color: var(--dark-bg);
+    color: white;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+}
+
+.plot-summary::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    font-size: 8rem;
+    opacity: 0.1;
+    font-family: Georgia, serif;
+    color: var(--accent-color);
+}
+
+.plot-summary::after {
+    content: '"';
+    position: absolute;
+    bottom: -50px;
+    right: 20px;
+    font-size: 8rem;
+    opacity: 0.1;
+    font-family: Georgia, serif;
+    color: var(--accent-color);
+}
+
+/* Mise en valeur de la note */
+.rating-highlight {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 15px;
+    background-image: var(--secondary-gradient);
+    color: #333;
+    border-radius: 20px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 154, 158, 0.5);
+    margin-left: 10px;
+    position: relative;
+    top: -2px;
+    transition: transform 0.3s ease;
+}
+
+.rating-highlight:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* Section commentaires stylisée */
+.comments-section {
+    margin-top: 60px;
+    position: relative;
+    padding-top: 40px;
+}
+
+.comments-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background-image: var(--primary-gradient);
+}
+
+.comments-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    background-image: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.comments-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-image: var(--primary-gradient);
+    border-radius: 3px;
+}
+
+/* Formulaire de commentaire stylisé */
+.comment-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.comment-form:hover {
+    transform: translateY(-5px);
+}
+
+.comment-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-image: var(--primary-gradient);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    padding-left: 15px;
+}
+
+.form-group label::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background-color: #f9f9f9;
+}
+
+.form-control:focus {
+    border-color: #6a11cb;
+    box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+    outline: none;
+    background-color: white;
+}
+
+.form-control:hover {
+    background-color: white;
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* Bouton stylisé */
+.btn-submit {
+    background-image: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(106, 17, 203, 0.4);
+}
+
+.btn-submit:hover::before {
+    left: 0;
+}
+
+.btn-submit:active {
+    transform: translateY(-1px);
+}
+
+/* Liste des commentaires avec style carte */
+.comments-list {
+    display: grid;
+    gap: 25px;
+}
+
+.comment {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.comment:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.comment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-image: var(--secondary-gradient);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.comment-author {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #333;
+    position: relative;
+    padding-left: 25px;
+}
+
+.comment-author::before {
+    content: '👤';
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.comment-date {
+    color: #777;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.comment-rating {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 3px;
+    font-size: 1.2rem;
+    color: #ffc107;
+}
+
+.comment-content {
+    line-height: 1.7;
+    position: relative;
+    padding-left: 20px;
+    color: #444;
+}
+
+.comment-content::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #ccc;
+    font-size: 1.5rem;
+    font-family: Georgia, serif;
+}
+
+/* Message quand pas de commentaires */
+.no-comments {
+    text-align: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.no-comments::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(106, 17, 203, 0.05),
+        rgba(106, 17, 203, 0.05) 10px,
+        rgba(255, 255, 255, 0) 10px,
+        rgba(255, 255, 255, 0) 20px
+    );
+}
+
+.no-comments::after {
+    content: '💬';
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 20px;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations supplémentaires */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes shine {
+    0%, 100% { background-position: 200% center; }
+    50% { background-position: 0% center; }
+}
+
+/* Animation des étoiles pour les ratings */
+.rating-stars {
+    display: inline-block;
+}
+
+.star {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.comment:hover .star {
+    animation: twinkle 1s infinite alternate;
+    transform-origin: center;
+}
+
+@keyframes twinkle {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.9; }
+}
+
+/* Responsive design amélioré */
+@media (max-width: 767px) {
+    .details {
+        padding: 25px;
+    }
+    
+    .film-title {
+        font-size: 2rem;
+    }
+    
+    .comment-form, .comment {
+        padding: 20px;
+    }
+    
+    .plot-summary {
+        padding: 20px;
+    }
+}

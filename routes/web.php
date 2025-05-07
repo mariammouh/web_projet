@@ -34,8 +34,10 @@ Route::delete('/watch/{id}', 'App\Http\Controllers\WatchController@destroy')->na
 Route::post('/top_watch', 'App\Http\Controllers\WatchController@top_watch')->name('top_watch')->middleware('auth');
 
 // routes/web.php
+//details
+Route::get('/film/details/{id}', 'App\Http\Controllers\WatchController@showFilm')->name('film.details');
+Route::get('/show/details/{id}', 'App\Http\Controllers\WatchController@showTV')->name('show.details');
 
-// User routes (default)
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Admin routes

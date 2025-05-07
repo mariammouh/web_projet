@@ -67,8 +67,8 @@
                                                 action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'film']) }}"
                                                 method="post">
                                                 @csrf
-                                                <button type="submit" class="add-to-watchlist-btn">Add to
-                                                    Watch list</button>
+                                                <a href="{{ route('film.details', $film->id) }}" class="btn btn-primary">Details</a>
+
                                             </form>
                                         @endif
                                     </div>
@@ -120,8 +120,8 @@
                                                 action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'show']) }}"
                                                 method="post">
                                                 @csrf
-                                                <button type="submit" class="add-to-watchlist-btn">Add to
-                                                    Watch list</button>
+                                                <a href="{{ route('show.details', $film->id) }}" class="btn btn-primary">Details</a>
+
                                             </form>
                                         @endif
                                     </div>

@@ -13,6 +13,19 @@ use Ramsey\Collection\Set;
 
 class WatchController extends Controller
 {
+    //recupere ID du movie\show
+    public function showFilm($id)
+    {
+        $film = Film::findOrFail($id);
+        return view('movie_details', compact('film'));
+    }
+    public function showTV($id)
+{
+    $show = Show::findOrFail($id);
+    return view('movie_details', compact('show'));
+}
+
+    
     public function search($id)
     {
         $query = request('search');
