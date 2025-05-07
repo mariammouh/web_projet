@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-<<<<<<< HEAD
-=======
 use App\Models\User;  // Importing the User model
 use App\Models\film;  // Importing the Film model
 use App\Models\show; 
 use Carbon\Carbon; 
 use Illuminate\Support\Facades\DB;
 
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
 class DashboardController extends Controller
 {
     // Constructor to apply middleware
@@ -25,10 +22,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
-        // Return the admin dashboard view
-        return view('admin.dashboard'); 
-=======
         // Current date and last month's date
         $currentDate = Carbon::now();
         $lastMonthDate = Carbon::now()->subMonth();
@@ -93,6 +86,5 @@ class DashboardController extends Controller
         }
 
         return (($current - $previous) / $previous) * 100;
->>>>>>> d004626e28593a720583e129bc7e99db8a1326fe
     }
 }
