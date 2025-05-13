@@ -3,6 +3,16 @@
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+use App\Http\Controllers\Admin\UserController;
+use App\Models\Watch_list;
+use App\Models\film;
+
+
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +43,9 @@ Route::post('/top_rate', 'App\Http\Controllers\WatchController@top_list')->name(
 Route::delete('/watch/{id}', 'App\Http\Controllers\WatchController@destroy')->name('delete')->middleware('auth');
 Route::post('/top_watch', 'App\Http\Controllers\WatchController@top_watch')->name('top_watch')->middleware('auth');
 
+
+
+
 // routes/web.php
 
 // User routes (default)
@@ -40,8 +53,23 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Admin routes
 Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
+
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::delete('/admin/users/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('/admin/users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.users.store');
+
+    Route::get('/users', function () {
+        $users = User::all();
+        return view('admin.user', compact('users')); 
+    })->name('admin.users'); 
+
+    Route::get('/admin/watchlists', function () {
+        $users = User::with('watchLists.film')->get(); 
+        return view('admin.watchlists', compact('users')); 
+    })->name('admin.watchlists')->middleware(['auth', 'is_admin']);
+    
 });
+
 
 Auth::routes();
 
