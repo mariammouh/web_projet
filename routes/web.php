@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\WatchController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActorController;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Http\Controllers\Admin\UserController;
+use App\Models\Watch_list;
+use App\Models\film;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +20,14 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// routes/web.php
+Route::get('/film/details/{id}', [WatchController::class, 'showFilm'])->name('film.details');
+Route::get('/show/details/{id}', [WatchController::class, 'showTV'])->name('show.details');
+Route::get('/actor/{actor}', [ActorController::class, 'show'])->name('actor.details');
+
+
+
 // Add (existing route):
 Route::post('/watch/{id}&{id_watch}&{type}', 'App\Http\Controllers\WatchController@store')->name('add_watch')->middleware('auth');
 
@@ -38,9 +51,7 @@ Route::post('/user_list/{id_rating}&rating', 'App\Http\Controllers\WatchControll
 Route::get('/profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile')->middleware('auth');
 Route::post('/profile/{id}', 'App\Http\Controllers\ProfileController@store')->name('profile_save')->middleware('auth');
 
-
 Route::post('/watch_search/{id}', 'App\Http\Controllers\WatchController@search')->name('search')->middleware('auth');
-
 
 Route::get('/watch/{id}', 'App\Http\Controllers\WatchController@index')->name('watch')->middleware('auth');
 Route::post('/watch/{id}&{id_watch}&{type}', 'App\Http\Controllers\WatchController@store')->name('add_watch')->middleware('auth');
@@ -50,21 +61,36 @@ Route::post('/top_rate', 'App\Http\Controllers\WatchController@top_list')->name(
 Route::delete('/watch/{id}', 'App\Http\Controllers\WatchController@destroy')->name('delete')->middleware('auth');
 Route::post('/top_watch', 'App\Http\Controllers\WatchController@top_watch')->name('top_watch')->middleware('auth');
 
-// routes/web.php
+// Film & Show details
 Route::get('/film/details/{id}', [WatchController::class, 'showFilm'])->name('film.details');
 Route::get('/show/details/{id}', [WatchController::class, 'showTV'])->name('show.details');
-Route::get('/actor/{actor}', [ActorController::class, 'show'])->name('actor.details');
 
-// User routes (default)
+// Default home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Remplacer la route existante
+
 // Admin routes
 Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Routes depuis ta branche fatimazahra-modifs
+    Route::delete('/admin/users/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('/admin/users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.users.store');
+
+    Route::get('/users', function () {
+        $users = User::all();
+        return view('admin.user', compact('users')); 
+    })->name('admin.users'); 
+
+    Route::get('/admin/watchlists', function () {
+        $users = User::with('watchLists.film')->get(); 
+        return view('admin.watchlists', compact('users')); 
+    })->name('admin.watchlists')->middleware(['auth', 'is_admin']);
+
+    // Routes depuis main
     Route::get('/archive', [App\Http\Controllers\Admin\ArchiveController::class, 'index'])->name('admin.archive');
     Route::post('/archive/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add'])->name('admin.archive.add');
 });
+
 Route::post('/admin/actors/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add_actor'])->name('admin.actors.add');
 
 Auth::routes();
-

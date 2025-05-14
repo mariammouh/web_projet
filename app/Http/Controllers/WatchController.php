@@ -23,31 +23,24 @@ class WatchController extends Controller
     // WatchController.php
 // In WatchController.php
 
+// WatchController.php
 public function showFilm($id)
 {
-    $film = Film::with('actors')->findOrFail($id);
-    $watchEntry = watch_list::where('user_id', auth()->id())
-        ->where('film_id', $id)
-        ->first();
+    $film = Film::with(['actors', 'comments.user'])->findOrFail($id);
     return view('movie_details', [
-        'film' => $film,
+        'film' => $film, 
         'show' => null,
-        'isInWatchlist' => $watchEntry ? true : false,
-        'watchlistId' => $watchEntry ? $watchEntry->id : null
+        'comments' => $film->comments // Passer explicitement
     ]);
 }
 
 public function showTV($id)
 {
-    $show = Show::with('actors')->findOrFail($id);
-    $watchEntry = watch_list::where('user_id', auth()->id())
-        ->where('show_id', $id)
-        ->first();
+    $show = Show::with(['actors', 'comments.user'])->findOrFail($id);
     return view('movie_details', [
-        'show' => $show,
+        'show' => $show, 
         'film' => null,
-        'isInWatchlist' => $watchEntry ? true : false,
-        'watchlistId' => $watchEntry ? $watchEntry->id : null
+        'comments' => $show->comments // Passer explicitement
     ]);
 }
     
