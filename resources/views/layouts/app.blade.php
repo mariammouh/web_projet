@@ -311,6 +311,8 @@ left: 0%;border-radius: 5px;
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                    Watch it 
+                <a class="navbar-brand" href="{{ url('/') }}">
+                   Mini projects
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

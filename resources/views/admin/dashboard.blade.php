@@ -1,4 +1,13 @@
 {{-- resources/views/admin/dashboard.blade.php --}}
+<<<<<<< HEAD
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, Admin!</p>
+    </div>
+=======
 @extends('layouts.admin')
 @section('aside')
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
@@ -478,6 +487,7 @@
             </div>
           </div>
         </div>
+<<<<<<< HEAD
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -570,6 +580,9 @@
 </script>
 <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+=======
+>>>>>>> 757134682855ebba57fe6f433af066aafe206c1d
+>>>>>>> bc4a9d6a019c8e7f49a66af008d464fc7df267f7
 @endsection
 
 
