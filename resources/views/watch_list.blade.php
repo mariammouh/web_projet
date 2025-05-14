@@ -49,28 +49,10 @@
                                         <p class="film-info"><strong>Rating:</strong> {{ $film->rating }}</p>
                                         <p class="film-info"><strong>Country:</strong> {{ $film->country }}</p>
                                         <p class="film-info"><strong>Language:</strong> {{ $film->language }}</p>
-
-                                        @php
-                                        $ite = $allList->first(function ($ite) use ($film) {
-                                            return $ite->film_id == $film->id && $ite->user_id == Auth::user()->id;
-                                        });
-                                    @endphp
-                                    
-                                    @if ($ite)
-                                        <form action="{{ route('delete', [$ite->id]) }}" method="post">
-                                            @csrf
-                                            @method("DELETE")
-                                            <button type="submit" class="remove-to-watchlist-btn">Remove from watch list</button>
-                                        </form>
-                                        @else
-                                            <form
-                                                action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'film']) }}"
-                                                method="post">
-                                                @csrf
+                                          @csrf
                                                 <a href="{{ route('film.details', $film->id) }}" class="btn btn-primary">Details</a>
 
-                                            </form>
-                                        @endif
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +102,7 @@
                                                 action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'show']) }}"
                                                 method="post">
                                                 @csrf
-                                                <a href="{{ route('show.details', $film->id) }}" class="btn btn-primary">Details</a>
+                                                <a href="{{ route('film.details', $film->id) }}" class="btn btn-primary">Details</a>
 
                                             </form>
                                         @endif

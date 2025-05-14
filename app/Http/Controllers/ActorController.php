@@ -11,13 +11,18 @@ class ActorController extends Controller
         return view('actors.create');
     }
 
+    public function show($actorId)
+{
+    $actor = Actor::findOrFail($actorId);
+    return view('actor_details', compact('actor'));
+}
+
     public function store(Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'birth_date' => 'nullable|date',
             'nationality' => 'nullable|string|max:100',
-            'biography' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 

@@ -33,8 +33,37 @@
                 <div class="card border-0">
                     <div class="card-body">
                         <h5 class="card-title">Key Information</h5>
+                        
+                        <!-- In movie_details.blade.php, inside the "film-poster" div -->
                         <div class="film-poster">
-                        <img src="{{ $film->poster ?? $show->poster }}" alt="Poster">
+                            <img src="{{ $film->poster ?? $show->poster }}" alt="Poster">
+                            @if(isset($film))
+                                @if($isInWatchlist)
+                                    <form action="{{ route('delete', $watchlistId) }}" method="POST" class="mt-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('add_watch', ['id' => auth()->id(), 'id_watch' => $film->id, 'type' => 'film']) }}" method="POST" class="mt-2">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm">Add to Watchlist</button>
+                                    </form>
+                                @endif
+                            @elseif(isset($show))
+                                @if($isInWatchlist)
+                                    <form action="{{ route('delete', $watchlistId) }}" method="POST" class="mt-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('add_watch', ['id' => auth()->id(), 'id_watch' => $show->id, 'type' => 'show']) }}" method="POST" class="mt-2">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary btn-sm">Add to Watchlist</button>
+                                    </form>
+                                @endif
+                            @endif
                         </div>
                         <ul class="list-group list-group-flush">
                            <li class="list-group-item"><strong>Release Date:</strong> {{ $film->release_date ?? $show->release_date }}
@@ -57,45 +86,97 @@
             <!-- Cast Tab -->
             <div class="tab-pane fade" id="cast" role="tabpanel">
                 <div class="row row-cols-2 row-cols-md-4 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="actor1.jpg" class="card-img-top" alt="Actor">
-                            <div class="card-body">
-                                <h6 class="card-title mb-0">John Smith</h6>
-                                <small class="text-muted">Main Character</small>
+                    @php
+                        $castList = $film->actors ?? $show->actors ?? collect();
+                    @endphp
+
+                    @foreach ($castList as $actor)
+                        <div class="col">
+                            <div class="card h-100">
+                                <a href="{{ route('actor.details', $actor->id) }}">
+                                    <img src="{{ asset($actor->image) }}" class="card-img-top" alt="{{ $actor->name }}">
+                                </a>
+                                <div class="card-body">
+                                    <h6 class="card-title mb-0">{{ $actor->name }}</h6>
+                                    <small class="text-muted">{{ $actor->pivot->role }}</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="actor2.jpg" class="card-img-top" alt="Actor">
-                            <div class="card-body">
-                                <h6 class="card-title mb-0">Jane Doe</h6>
-                                <small class="text-muted">Supporting Role</small>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+
+
 
             <div class="tab-pane fade" id="reviews" role="tabpanel">
                 <div class="card border-0">
                     <div class="card-body">
                         <h5 class="card-title">User Reviews</h5>
-                        <form class="mb-3">
-                            <div class="form-group">
-                                <textarea class="form-control" rows="3" placeholder="Write your review..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
-                        </form>
                         
-                        <div class="mt-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="flex-grow-1 ms-3">
-                                    <h6>John Doe <span class="text-warning">★★★★☆</span></h6>
-                                    <p class="mb-0">This movie was absolutely fantastic!</p>
-                                </div>
+                        @auth
+                        <form method="POST" action="{{ route('comments.store') }}" class="mb-3">
+                            @csrf
+                            <input type="hidden" name="{{ $film ? 'film_id' : 'show_id' }}" value="{{ $film->id ?? $show->id }}">
+                            
+                            <div class="form-group mb-3">
+                                <textarea name="content" class="form-control" rows="3" placeholder="Écrivez votre avis..." required></textarea>
                             </div>
+                            
+                            <div class="rating mb-3">
+                                <select name="rating" class="form-select" required>
+                                    <option value="">Choisir une note</option>
+                                    @for($i = 5; $i >= 1; $i--)
+                                        <option value="{{ $i }}">{{ $i }} ★</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Envoyer</button>
+                        </form>
+                        @endauth
+
+                        <div class="mt-4">
+                           @foreach(($comments ?? collect())->sortByDesc('created_at') as $comment)
+                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6>
+                                            {{ $comment->user->name }}
+                                            @if($comment->rating)
+                                            <span class="text-warning">
+                                                {{ str_repeat('★', $comment->rating) }}{{ str_repeat('☆', 5 - $comment->rating) }}
+                                            </span>
+                                            @endif
+                                            
+                                            @auth
+                                            <div class="float-end btn-group">
+                                                {{-- Bouton Suppression --}}
+                                                @if(Auth::id() === $comment->user_id)
+                                                <form method="POST" action="{{ route('comments.destroy', $comment) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce commentaire ?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
+                                                
+                                                {{-- Bouton Signalement --}}
+                                                <form method="POST" action="{{ route('comments.report', $comment) }}">
+                                                    @csrf
+                                                    <button type="submit" 
+                                                            class="btn btn-sm btn-outline-danger ms-1"
+                                                            {{ $comment->isReportedBy(Auth::id()) ? 'disabled' : '' }}>
+                                                        Signaler 
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            @endauth
+                                        </h6>
+                                        <p class="mb-0">{{ $comment->content }}</p>
+                                        <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

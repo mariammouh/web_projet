@@ -14,17 +14,42 @@ use Ramsey\Collection\Set;
 class WatchController extends Controller
 {
     //recupere ID du movie\show
-    public function showFilm($id)
-    {
-        $film = Film::findOrFail($id);
-        return view('movie_details', compact('film'));
-    }
-    public function showTV($id)
+    // public function showFilm($id)
+    // {
+    //     $film = Film::with('actors')->findOrFail($id);
+    //     return view('movie_details', ['film' => $film, 'show' => null]);
+    
+    // }
+    // WatchController.php
+// In WatchController.php
+
+public function showFilm($id)
 {
-    $show = Show::findOrFail($id);
-    return view('movie_details', compact('show'));
+    $film = Film::with('actors')->findOrFail($id);
+    $watchEntry = watch_list::where('user_id', auth()->id())
+        ->where('film_id', $id)
+        ->first();
+    return view('movie_details', [
+        'film' => $film,
+        'show' => null,
+        'isInWatchlist' => $watchEntry ? true : false,
+        'watchlistId' => $watchEntry ? $watchEntry->id : null
+    ]);
 }
 
+public function showTV($id)
+{
+    $show = Show::with('actors')->findOrFail($id);
+    $watchEntry = watch_list::where('user_id', auth()->id())
+        ->where('show_id', $id)
+        ->first();
+    return view('movie_details', [
+        'show' => $show,
+        'film' => null,
+        'isInWatchlist' => $watchEntry ? true : false,
+        'watchlistId' => $watchEntry ? $watchEntry->id : null
+    ]);
+}
     
     public function search($id)
     {
@@ -218,6 +243,7 @@ class WatchController extends Controller
         var_dump($watch->user_id);
         return redirect()->back()->with('message', 'Data updated successfully.');
     }
+    
 
     public function index($id)
     {
