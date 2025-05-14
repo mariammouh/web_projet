@@ -145,28 +145,6 @@
         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Actions</th> <!-- Nouvelle colonne -->
     </tr>
 </thead>
-<tbody>
-    @foreach($user->comments as $comment)
-    <tr>
-        <!-- ... colonnes existantes ... -->
-        <td>
-            <span class="badge badge-sm {{ $comment->reports_count > 0 ? 'bg-gradient-danger' : 'bg-gradient-success' }}">
-                {{ $comment->reports_count }}
-            </span>
-        </td>
-        <td>
-            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-link text-danger btn-sm" 
-                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
                 <li>
                   <a class="dropdown-item border-radius-md" href="javascript:;">
                     <div class="d-flex py-1">
