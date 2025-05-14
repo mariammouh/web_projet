@@ -25,7 +25,13 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+    .logo-img {
+  width: 120px !important;
+  height: 120px !important;
+}
 
+</style>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
