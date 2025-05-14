@@ -1,23 +1,21 @@
-{{-- resources/views/admin/dashboard.blade.php --}}
-<<<<<<< HEAD
-@extends('layouts.app')
 
-@section('content')
-    <div class="container">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome, Admin!</p>
-    </div>
-=======
+{{-- resources/views/admin/dashboard.blade.php --}}
+
 @extends('layouts.admin')
 @section('aside')
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
-    <div class="sidenav-header">
+   
+  <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" {{ url('/') }}" target="_blank">
-        <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">  Watch it </span>
+        <img src="../assets/img/logo.jpeg" width="50px" height="100px" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">StreamMuse</span>
       </a>
     </div>
+
+  
+
+
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
@@ -38,7 +36,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('admin/users') }}">
+          <a class="nav-link " href="{{ url('admin/users') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
@@ -256,7 +254,7 @@
                       <p>This website provides all the tools you need to ensure your users have the best possible experience.</p>
                     </div>
                   </div>
-                  <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-3.jpg');
+                 {{--  <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-3.jpg');
         background-size: cover;">
                     <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                       <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -265,7 +263,7 @@
                       <h5 class="text-white mb-1">Share with us your design tips!</h5>
                       <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
                     </div>
-                  </div>
+                  </div> --}}
                 </div>
                 <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -279,7 +277,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4">
+     {{--    <div class="row mt-4">
           <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card ">
               <div class="card-header pb-0 p-3">
@@ -486,8 +484,7 @@
               </div>
             </div>
           </div>
-        </div>
-<<<<<<< HEAD
+        </div> --}}
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -578,11 +575,10 @@
       },
   });
 </script>
-<script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-=======
->>>>>>> 757134682855ebba57fe6f433af066aafe206c1d
->>>>>>> bc4a9d6a019c8e7f49a66af008d464fc7df267f7
 @endsection
+
+
 
 
