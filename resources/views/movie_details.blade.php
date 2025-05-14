@@ -37,7 +37,35 @@
                         <!-- In movie_details.blade.php, inside the "film-poster" div -->
                         <div class="film-poster">
                             <img src="{{ $film->poster ?? $show->poster }}" alt="Poster">
-                           
+                                    @auth
+                                        @php
+                                            $watchEntry = $film 
+                                                ? App\Models\watch_list::where('user_id', Auth::id())->where('film_id', $film->id)->first()
+                                                : App\Models\watch_list::where('user_id', Auth::id())->where('show_id', $show->id)->first();
+                                        @endphp
+
+                                        @if($watchEntry)
+                                            <form method="POST" action="{{ route('delete', $watchEntry->id) }}" class="mb-4">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-bookmark-dash"></i> Supprimer de ma watchlist
+                                                </button>
+                                            </form>
+                                        @else
+                                            <form method="POST" action="{{ route('add_watch', [
+                                                'id' => Auth::id(),
+                                                'id_watch' => $film->id ?? $show->id,
+                                                'type' => $film ? 'film' : 'show'
+                                            ]) }}" class="mb-4">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="bi bi-bookmark-plus"></i> Ajouter à ma watchlist
+                                                </button>
+                                            </form>
+                                        @endif
+                                    @endauth
+ 
                         </div>
                         <ul class="list-group list-group-flush">
                            <li class="list-group-item"><strong>Release Date:</strong> {{ $film->release_date ?? $show->release_date }}

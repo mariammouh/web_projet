@@ -65,7 +65,7 @@
                             <div class=" show">
                                 <div class="film-card">
                                     <div class="film-poster">
-                                        <img src="{{ $film->poster }}" alt="Film Poster">
+                                        <img src="{{ $film->poster }}" alt="show Poster">
                                     </div>
                                     <div class="film-details">
                                         <h2 class="film-title">{{ $film->title }}</h2>
@@ -102,7 +102,7 @@
                                                 action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'show']) }}"
                                                 method="post">
                                                 @csrf
-                                                <a href="{{ route('film.details', $film->id) }}" class="btn btn-primary">Details</a>
+                                                <a href="{{ route('show.details', $film->id) }}" class="btn btn-primary">Details</a>
 
                                             </form>
                                         @endif
