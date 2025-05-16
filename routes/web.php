@@ -48,6 +48,37 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->name('comments.destroy')
     ->middleware('auth');
 
+use App\Http\Controllers\ProfileController;     
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\ShowController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\WatchlistController;
+
+Route::get('/browse/{type}', ['App\Http\Controllers\BrowseController'::class, 'index'])->name('browse');
+// Main Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+// Film Routes
+Route::get('/films', ['App\Http\Controllers\FilmController'::class, 'index'])->name('films.index');
+Route::get('/films/{film}', ['App\Http\Controllers\FilmController'::class, 'show'])->name('films.show');
+
+// Show Routes
+Route::get('/shows', ['App\Http\Controllers\ShowController'::class, 'index'])->name('shows.index');
+Route::get('/shows/{show}', ['App\Http\Controllers\ShowController'::class, 'show'])->name('shows.show');
+
+// Watchlist Routes
+Route::get('/watchlist', ['App\Http\Controllers\WatchlistController'::class, 'index'])->name('watchlist');
+Route::post('/watchlist', ['App\Http\Controllers\WatchlistController'::class, 'store'])->name('watchlist.store');
+Route::delete('/watchlist/{watchlist}', ['App\Http\Controllers\WatchlistController', 'destroy'])->name('watchlist.destroy');
+
+// Video Player Route
+Route::get('/watch/{watch}', function ($id) {
+    // Your existing display logic
+})->name('watch');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -55,8 +86,14 @@ Route::get('/', function () {
 Route::post('/user_list/{id_rating}&rating', 'App\Http\Controllers\WatchController@rate')->name('submit_rating')->middleware('auth');
 Route::get('/profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile')->middleware('auth');
 Route::post('/profile/{id}', 'App\Http\Controllers\ProfileController@store')->name('profile_save')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+*/
 
-Route::post('/watch_search/{id}', 'App\Http\Controllers\WatchController@search')->name('search')->middleware('auth');
+
 
 Route::get('/watch/{id}', 'App\Http\Controllers\WatchController@index')->name('watch')->middleware('auth');
 Route::post('/watch/{id}&{id_watch}&{type}', 'App\Http\Controllers\WatchController@store')->name('add_watch')->middleware('auth');
@@ -97,5 +134,12 @@ Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
 });
 
 Route::post('/admin/actors/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add_actor'])->name('admin.actors.add');
+
+Auth::routes();
+/*Route::get('/profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile')->middleware('auth');*/
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
+    Route::post('/profile/{id}', [ProfileController::class, 'store'])->name('profile_save');
+});
 
 Auth::routes();
