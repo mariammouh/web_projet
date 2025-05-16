@@ -20,6 +20,11 @@ use App\Models\film;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// In web.php for admin comments
+Route::get('/users', function () {
+    $users = User::with(['watchLists.film', 'comments.film', 'comments.show'])->get(); // Charger les relations
+    return view('admin.user', compact('users')); 
+})->name('admin.users');
 
 // routes/web.php
 Route::get('/film/details/{id}', [WatchController::class, 'showFilm'])->name('film.details');
