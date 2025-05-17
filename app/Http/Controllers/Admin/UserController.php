@@ -18,7 +18,7 @@ class UserController extends Controller
                      ->orderBy('created_at', 'desc')
                      ->paginate(10); 
 
-        return view('admin.user', compact('users')); 
+        return view('admin.user', compact('users',)); 
     }
 
     // Supprime un utilisateur

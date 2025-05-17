@@ -6,6 +6,8 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 class CommentController extends Controller
 {
     public function store(Request $request)
@@ -36,6 +38,8 @@ class CommentController extends Controller
         
         return back()->with('error', 'Vous avez déjà signalé ce commentaire');
     }
+
+
     public function destroy(Comment $comment)
     {
         // Vérifier que l'utilisateur est bien l'auteur du commentaire
@@ -45,5 +49,19 @@ class CommentController extends Controller
 
         $comment->delete();
         return back()->with('success', 'Commentaire supprimé !');
+    }
+      public function delete($id)
+    {
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+            Session::flash('error', 'Comment not found.');
+            return Redirect::back();
+        }
+
+        $comment->delete();
+
+        Session::flash('success', 'Comment deleted successfully.');
+        return Redirect::back();
     }
 }
