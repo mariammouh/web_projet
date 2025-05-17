@@ -28,6 +28,11 @@ use Illuminate\Support\Facades\DB;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// In web.php for admin comments
+Route::get('/users', function () {
+    $users = User::with(['watchLists.film', 'comments.film', 'comments.show'])->get(); // Charger les relations
+    return view('admin.user', compact('users')); 
+})->name('admin.users');
 
 // routes/web.php
 Route::get('/film/details/{id}', [WatchController::class, 'showFilm'])->name('film.details');
@@ -51,6 +56,37 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
     ->name('comments.destroy')
     ->middleware('auth');
 
+use App\Http\Controllers\ProfileController;     
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\ShowController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\WatchlistController;
+
+Route::get('/browse/{type}', ['App\Http\Controllers\BrowseController'::class, 'index'])->name('browse');
+// Main Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+ 
+// Film Routes
+Route::get('/films', ['App\Http\Controllers\FilmController'::class, 'index'])->name('films.index');
+Route::get('/films/{film}', ['App\Http\Controllers\FilmController'::class, 'show'])->name('films.show');
+
+// Show Routes
+Route::get('/shows', ['App\Http\Controllers\ShowController'::class, 'index'])->name('shows.index');
+Route::get('/shows/{show}', ['App\Http\Controllers\ShowController'::class, 'show'])->name('shows.show');
+
+// Watchlist Routes
+Route::get('/watchlist', ['App\Http\Controllers\WatchlistController'::class, 'index'])->name('watchlist');
+Route::post('/watchlist', ['App\Http\Controllers\WatchlistController'::class, 'store'])->name('watchlist.store');
+Route::delete('/watchlist/{watchlist}', ['App\Http\Controllers\WatchlistController', 'destroy'])->name('watchlist.destroy');
+
+// Video Player Route
+Route::get('/watch/{watch}', function ($id) {
+    // Your existing display logic
+})->name('watch');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -58,8 +94,14 @@ Route::get('/', function () {
 Route::post('/user_list/{id_rating}&rating', 'App\Http\Controllers\WatchController@rate')->name('submit_rating')->middleware('auth');
 Route::get('/profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile')->middleware('auth');
 Route::post('/profile/{id}', 'App\Http\Controllers\ProfileController@store')->name('profile_save')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
+*/
 
-Route::post('/watch_search/{id}', 'App\Http\Controllers\WatchController@search')->name('search')->middleware('auth');
+
 
 Route::get('/admin/comment/{id}', [App\Http\Controllers\CommentController::class, 'delete'])->name('comment.delete');
 
@@ -90,14 +132,13 @@ Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
         $users = User::all();
           $reportedComments = Comment::where('reports_count', '>', 0)
             ->with(['user:id,name', 'film:id,title', 'show:id,title']) // Use 'name' for the user table
-            ->latest() // Optional: Order by creation date (latest first)
-            // Or orderByDesc('reports_count') if you want to see most reported first
-            ->get() // Execute the query
+            ->latest() 
+            ->get() 
             ->map(function ($comment) {
-                // Determine the related item title and type
+                
                 $relatedTitle = null;
                 $relatedType = null;
-                $relatedId = null; // Include related item ID
+                $relatedId = null; 
 
                 if ($comment->film) {
                     $relatedTitle = $comment->film->title;
@@ -110,16 +151,15 @@ Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
                 }
 
                 return [
-                    'id' => $comment->id, // Comment ID
-                    'user_name' => $comment->user ? $comment->user->name : 'Unknown User', // Use 'name' column, add null check
+                    'id' => $comment->id, 
+                    'user_name' => $comment->user ? $comment->user->name : 'Unknown User',
                     'reports_count' => $comment->reports_count,
-                    'related_type' => $relatedType, // 'film' or 'show'
-                    'related_id' => $relatedId, // ID of the film or show
-                    'related_title' => $relatedTitle, // Title of the film or show
+                    'related_type' => $relatedType, 
+                    'related_id' => $relatedId,
+                    'related_title' => $relatedTitle, 
                     'comment_content' => $comment->content,
-                    'created_at' => $comment->created_at, // You might want the creation date too
-                    // You could add a link/route here if needed for the frontend
-                    // 'link' => $relatedType === 'film' ? route('films.show', $relatedId) : ($relatedType === 'show' ? route('shows.show', $relatedId) : null)
+                    'created_at' => $comment->created_at,
+                   
                 ];
             });
         return view('admin.user', compact('users','reportedComments')); 
@@ -130,11 +170,18 @@ Route::prefix('admin')->middleware('auth', 'is_admin')->group(function () {
         return view('admin.watchlists', compact('users')); 
     })->name('admin.watchlists')->middleware(['auth', 'is_admin']);
 
-    // Routes depuis main
+ 
     Route::get('/archive', [App\Http\Controllers\Admin\ArchiveController::class, 'index'])->name('admin.archive');
     Route::post('/archive/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add'])->name('admin.archive.add');
 });
 
 Route::post('/admin/actors/add', [App\Http\Controllers\Admin\ArchiveController::class, 'add_actor'])->name('admin.actors.add');
+
+Auth::routes();
+/*Route::get('/profile/{id}', 'App\Http\Controllers\ProfileController@show')->name('profile')->middleware('auth');*/
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
+    Route::post('/profile/{id}', [ProfileController::class, 'store'])->name('profile_save');
+});
 
 Auth::routes();

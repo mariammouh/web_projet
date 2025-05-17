@@ -5,13 +5,13 @@
 @section('aside')
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
    
-  <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" {{ url('/') }}" target="_blank">
-        <img src="../assets/img/logo.jpeg" width="50px" height="100px" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">StreamMuse</span>
-      </a>
-    </div>
+ <div class="sidenav-header h-200">
+  <a class="navbar-brand m-2 p-3 pb flex items-center" href="{{ url('/') }}" target="_blank">
+    <img src="{{ asset('img/LogoD.png') }}" width="auto" height="auto" style="max-width: 100%; max-height: 200px;" alt="main_logo">
+    
+  </a>
+</div>
+
 
   
 
@@ -58,11 +58,11 @@
             </div>
             <span class="nav-link-text ms-1">RTL</span>
           </a>
-        </li> --}}
+        </li> 
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
-        <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link " href="../pages/profile.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-dark text-sm opacity-10"></i>
@@ -85,7 +85,7 @@
             </div>
             <span class="nav-link-text ms-1">Sign Up</span>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </div>
   {{--   <div class="sidenav-footer mx-3 ">
@@ -193,10 +193,12 @@
                     <div class="numbers">
                       <p class="text-sm mb-0 text-uppercase font-weight-bold">Flags</p>
                       <h5 class="font-weight-bolder">
-                        $103,430
+                     {{ $reportedCommentsCount}}
                       </h5>
                       <p class="mb-0">
-                        <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
+<span class="{{ $reportedCommentsChange >= 0 ? 'text-danger' : 'text-success' }} text-sm font-weight-bolder">
+    {{ $reportedCommentsChange >= 0 ? '+' : '' }}{{ $reportedCommentsChange }}%
+</span> than last month
                       </p>
                     </div>
                   </div>
@@ -217,7 +219,7 @@
                     <h6 class="text-capitalize">User Registration Overview</h6>
                     <p class="text-sm mb-0">
                         <i class="fa fa-arrow-up text-success"></i>
-                        <span class="font-weight-bold">4% more</span> in the last 6 months
+                        <span class="font-weight-bold">{{$user6MonthChange}} more</span> in the last 6 months
                     </p>
                 </div>
                 <div class="card-body p-3">

@@ -28,14 +28,19 @@ class LoginController extends Controller
      */
     
 
-
-      protected function redirectTo()
+public function showLoginForm()
+{
+    if (auth()->check()) {
+        return redirect('/home');
+    }
+    return view('auth.login');
+}
+protected function redirectTo()
 {
     if (auth()->user()->role == 'admin') {
-        return route('admin.dashboard');  // or your custom admin route
+        return route('admin.dashboard');
     }
-    $userId = Auth::id(); // or Auth::user()->id
-    return '/watch/' . $userId;
+    return '/home';  // Changed from '/watch/' . $userId
 }
 
     /**

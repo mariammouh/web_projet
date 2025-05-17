@@ -1,35 +1,71 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-
-                <div class="card-header">Hello again {{ Auth::user()->name }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div class="content service"><img src="img/todo.svg" alt=""> <a
-                            href="{{ route('todolist', Auth::user()->id) }}">Your todo list</a><br>
-                    </div>
-                    <div class="content service"><img src="img/2.png" alt=""> <a
-                            href="{{ route('profile', Auth::user()->id) }}">Edit your profile</a>
-                    </div>
-                    <div class="content service"><img src="img/question.png" alt=""> <a
-                            href="{{ route('quiz', Auth::user()->id) }}">Let us know you better</a>
-                    </div>
-                    <div class="content service"><img src="img/movie.svg" alt=""> <a
-                        href="{{ route('watch', Auth::user()->id) }}">Wanna watch somthing today ?</a>
-                </div>
-                    <div class="content service"><img src="img/resume.webp" alt=""> <a
-                        href="{{ route('quiz', Auth::user()->id) }}">Check what you have for today</a>
-                </div>
-                </div>
-            </div>
-        </div>
+   <!-- Movies Section -->
+<section class="mb-14">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="section-title text-2xl font-bold inline-block relative">
+            Movies
+        </h2>
+        <a href="{{ route('browse', 'movies') }}" class="text-sm font-medium text-purple-300 hover:text-purple-200 flex items-center">
+          View All <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
     </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        @foreach($movies as $movie)
+            @include('components.content-card', ['item' => $movie])
+        @endforeach
+    </div>
+</section>
+
+<!-- Series Section -->
+<section class="mb-14">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="section-title text-2xl font-bold inline-block relative">
+            Series
+        </h2>
+        <a href="{{ route('browse', 'series') }}" class="text-sm font-medium text-purple-300 hover:text-purple-200 flex items-center">
+          View All <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        @foreach($series as $show)
+            @include('components.content-card', ['item' => $show])
+        @endforeach
+    </div>
+</section>
+
+<!-- K-Drama Section -->
+<section class="mb-14">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="section-title text-2xl font-bold inline-block relative">
+            K-Drama Collection
+        </h2>
+        <a  href="{{ route('browse', 'kdrama') }}" class="text-sm font-medium text-purple-300 hover:text-purple-200 flex items-center">
+          View All <i class="fas fa-chevron-right ml-1 text-xs"></i>
+        </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        @foreach($kdramas as $show)
+            @include('components.content-card', ['item' => $show])
+        @endforeach
+    </div>
+</section>
+
+<!-- Anime Section -->
+<section class="mb-14">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="section-title text-2xl font-bold inline-block relative">
+            Anime
+        </h2>
+       <a href="{{ route('browse', 'anime') }}" class="text-sm font-medium text-purple-300 hover:text-purple-200 flex items-center">
+          View All <i class="fas fa-chevron-right ml-1 text-xs"></i>
+       </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        @foreach($anime['all'] as $item)
+            @include('components.content-card', ['item' => $item])
+        @endforeach
+    </div>
+</section>
 @endsection

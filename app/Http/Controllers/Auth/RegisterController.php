@@ -28,14 +28,20 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected function redirectTo()
-    {
-        if (auth()->user()->role == 'admin') {
-            return route('admin.dashboard');  // or your custom admin route
-        }
-        $userId = Auth::id(); // or Auth::user()->id
-        return '/watch/' . $userId;
+public function showRegistrationForm()
+{
+    if (auth()->check()) {
+        return redirect('/home');
     }
+    return view('auth.register');
+}
+protected function redirectTo()
+{
+    if (auth()->user()->role == 'admin') {
+        return route('admin.dashboard');
+    }
+    return '/home';  // Changed from '/watch/' . $userId
+}
 
     /**
      * Create a new controller instance.

@@ -16,7 +16,7 @@
                     <br />
                     
                     <div class="card">
-                      
+                        <div class="card-header"><h1>{{ __('Our film') }}</h1></div>
                         @foreach ($allFilms as $film)
                             <div class=" film">
                                 <div class="film-card">
@@ -36,38 +36,22 @@
                                         <p class="film-info"><strong>Rating:</strong> {{ $film->rating }}</p>
                                         <p class="film-info"><strong>Country:</strong> {{ $film->country }}</p>
                                         <p class="film-info"><strong>Language:</strong> {{ $film->language }}</p>
+                                          @csrf
+                                                <a href="{{ route('film.details', $film->id) }}" class="btn btn-primary">Details</a>
 
-                                        @php
-                                        $ite = $allList->first(function ($ite) use ($film) {
-                                            return $ite->film_id == $film->id && $ite->user_id == Auth::user()->id;
-                                        });
-                                    @endphp
-                                    
-                                    @if ($ite)
-                                        <form action="{{ route('delete', [$ite->id]) }}" method="post">
-                                            @csrf
-                                            @method("DELETE")
-                                            <button type="submit" class="remove-to-watchlist-btn">Remove from watch list</button>
-                                        </form>
-                                        @else
-                                            <form
-                                                action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'film']) }}"
-                                                method="post">
-                                                @csrf
-                                                <button type="submit" class="add-to-watchlist-btn">Add to
-                                                    Watch list</button>
-                                            </form>
-                                        @endif
+                                      
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="card">
 
                         @foreach ($allShows as $film)
                             <div class=" show">
                                 <div class="film-card">
                                     <div class="film-poster">
-                                        <img src="{{ $film->poster }}" alt="Film Poster">
+                                        <img src="{{ $film->poster }}" alt="show Poster">
                                     </div>
                                     <div class="film-details">
                                         <h2 class="film-title">{{ $film->title }}</h2>
@@ -104,8 +88,8 @@
                                                 action="{{ route('add_watch', ['id' => Auth::user()->id, 'id_watch' => $film->id, 'type' => 'show']) }}"
                                                 method="post">
                                                 @csrf
-                                                <button type="submit" class="add-to-watchlist-btn">Add to
-                                                    Watch list</button>
+                                                <a href="{{ route('show.details', $film->id) }}" class="btn btn-primary">Details</a>
+
                                             </form>
                                         @endif
                                     </div>
@@ -113,6 +97,7 @@
                             </div>
                         @endforeach
                     </div>
+
                     {{-- </div>
                                 </div>
                             </div>

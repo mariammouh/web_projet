@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Watch it</title>
+    <title>StreamMuse</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -23,13 +23,15 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- CSS Files -->
+    <link rel="icon" href="{{ asset('img/LogoD.png') }}" type="image/png">
+
     <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
-    .logo-img {
-  width: 120px !important;
-  height: 120px !important;
-}
+/*     .logo-img {
+  width: 180px !important;
+  height: 180px !important;
+} */
 
 </style>
 </head>
@@ -50,10 +52,10 @@
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                   <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                    <form action="{{ route('search', Auth::user()->id) }}" method="post">
+                    <form action="{{ route('search') }}" method="GET">
                       @csrf
                       <div class="input-group">
-                        <input type="text" name="search"class="form-control" placeholder="Type here...">
+                        <input type="text" name="query"class="form-control" placeholder="Type here...">
                         <button type="submit" class="input-group-text  border-start-0">
                           <i class="fas fa-search text-body" aria-hidden="true"></i>
                         </button>

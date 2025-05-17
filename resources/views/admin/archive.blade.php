@@ -2,13 +2,13 @@
 @extends('layouts.admin')
 @section('aside')
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
-   <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" {{ url('/') }}" target="_blank">
-        <img src="../assets/img/logo.jpeg" width="50px" height="100px" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">StreamMuse</span>
-      </a>
-    </div>
+
+   <div class="sidenav-header h-200">
+  <a class="navbar-brand m-2 p-3 pb flex items-center" href="{{ url('/') }}" target="_blank">
+    <img src="{{ asset('img/LogoD.png') }}" width="auto" height="auto" style="max-width: 100%; max-height: 200px;" alt="main_logo">
+    
+  </a>
+</div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
@@ -51,7 +51,7 @@
             </div>
             <span class="nav-link-text ms-1">RTL</span>
           </a>
-        </li> --}}
+        </li> 
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -78,7 +78,7 @@
             </div>
             <span class="nav-link-text ms-1">Sign Up</span>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </div>
   {{--   <div class="sidenav-footer mx-3 ">
@@ -141,6 +141,10 @@
                 <label class="form-control-label">Production Company</label>
                 <input class="form-control" type="text" name="production_company">
               </div>
+                <div class="col-md-6">
+                <label class="form-control-label">Type</label>
+                <input class="form-control" type="Type" name="language">
+              </div>
               <div class="col-md-12">
                 <label class="form-control-label">Main Leads</label>
                 <div class="row">
@@ -183,7 +187,7 @@
                   <label class="form-control-label">Duration in mins</label>
                   <input class="form-control" type="number" name="duration">
                 </div>
-                <div class="col-md-6">
+          {{--       <div class="col-md-6">
                     <label class="form-control-label d-block mb-2">Upload Trailer Video</label>
                     <div class="input-group">
                       <label class="input-group-text bg-gradient-primary text-white" for="src">
@@ -192,7 +196,7 @@
                       <input class="form-control" type="file" name="trailer" id="src" accept="video/*" hidden onchange="updateVideoLabel(this)">
                      
                     </div>
-                  </div>
+                  </div> --}}
                   
                   <script>
                     function updateVideoLabel(input) {
@@ -225,7 +229,7 @@
             <div class="row">
               <div class="col-md-6">
                 <label class="form-control-label">Rating</label>
-                <input class="form-control" type="text" name="rating">
+                <input class="form-control" type="number" name="rating">
               </div>
               <div class="col-md-6">
                 <label class="form-control-label">Country</label>
