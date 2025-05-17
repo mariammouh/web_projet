@@ -103,12 +103,33 @@ class DashboardController extends Controller
                     // 'link' => $relatedType === 'film' ? route('films.show', $relatedId) : ($relatedType === 'show' ? route('shows.show', $relatedId) : null)
                 ];
             });
-       
+          
+
+$currentReportedCount = Comment::where('reports_count', '>', 0)->count();
+
+$lastMonthReportedCount = Comment::where('reports_count', '>', 0)
+    ->whereBetween('created_at', [$lastMonthDate->copy()->startOfMonth(), $lastMonthDate->copy()->endOfMonth()])
+    ->count();
+
+$reportedCommentsChange = $this->calculatePercentageChange($currentReportedCount, $lastMonthReportedCount);
+$sixMonthsAgo = Carbon::now()->subMonths(6);
+$twelveMonthsAgo = Carbon::now()->subMonths(12);
+
+// New users in last 6 months
+$usersLast6Months = User::where('created_at', '>=', $sixMonthsAgo)->count();
+
+// New users in the 6 months before that
+$usersPrevious6Months = User::whereBetween('created_at', [$twelveMonthsAgo, $sixMonthsAgo])->count();
+
+$user6MonthChange = $this->calculatePercentageChange($usersLast6Months, $usersPrevious6Months);
+
+       $reportedCommentsCount = Comment::where('reports_count', '>', 0)->count();
         return view('admin.dashboard', compact(
             'userCount', 'filmCount', 'showCount',
             'userChange', 'filmChange', 'showChange',
             'userCountValues', 'monthLabels',
-            'reportedComments', 'reportedComments'
+            'reportedCommentsCount','user6MonthChange',
+    'reportedCommentsChange', 'reportedComments'
         ));
         
         

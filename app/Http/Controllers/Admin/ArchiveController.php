@@ -107,7 +107,7 @@ class ArchiveController extends Controller
         $film->genre = $request->input('genre');
         $film->director = $request->input('director');
         $film->production_company = $request->input('production_company');
-        
+        $film->type = $request->input('type');
         // Convert duration
         $durationInMinutes = $request->input('duration');
         $hours = intdiv($durationInMinutes, 60);
@@ -174,7 +174,7 @@ class ArchiveController extends Controller
         $show->country = $request->input('country');
         $show->language = $request->input('language');
         $show->main_leads ="";
-
+ $show->type = $request->input('type');
         if ($request->hasFile('poster')) {
             $request->validate([
                 'poster' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
