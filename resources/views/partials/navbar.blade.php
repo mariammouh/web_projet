@@ -46,7 +46,7 @@
 
     <!-- User Actions -->
     <div class="flex items-center space-x-4">
-        <a href="{{ route('watchlist') }}" 
+        <a href="{{ route('show_list', Auth::user()->id) }}" 
            class="bg-purple-600/90 hover:bg-purple-700 px-4 py-2 rounded-full text-sm font-medium flex items-center whitespace-nowrap transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
             <i class="fas fa-bookmark mr-2"></i> Watchlist
         </a>
