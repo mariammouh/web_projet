@@ -6,6 +6,8 @@
     <title>StreamMuse - {{ $title ?? 'Home' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -44,7 +46,11 @@
     <main class="container mx-auto px-4 py-6">
         @yield('content')
     </main>
+<!-- Scripts Section -->
+@stack('scripts')
+    <!-- End of content -->
 
-    @stack('scripts')
+
+
 </body>
 </html>
