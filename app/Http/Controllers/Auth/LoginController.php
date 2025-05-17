@@ -30,11 +30,6 @@ class LoginController extends Controller
 
 public function showLoginForm()
 {
-    if (auth()->user()->role == 'admin') {
-        return route('admin.dashboard');  // or your custom admin route
-    }
-    $userId = Auth::id(); // or Auth::user()->id
-    return '/watch/' . $userId;
     if (auth()->check()) {
         return redirect('/home');
     }

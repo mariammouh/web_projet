@@ -1,8 +1,8 @@
 <div class="content-card bg-gray-800 rounded-lg overflow-hidden group">
-     @if($item instanceof \App\Models\Film)
-        <a href="{{ route('film.details', $item->id) }}">  {{-- Changed route --}}
+    @if($item instanceof \App\Models\Film)
+        <a href="{{ route('films.show', $item->id) }}">
     @else
-        <a href="{{ route('show.details', $item->id) }}">  {{-- Changed route --}}
+        <a href="{{ route('shows.show', $item->id) }}">
     @endif
         <img src="{{ asset($item->poster) }}" alt="{{ $item->title }}" class="w-full h-80 object-cover">
         <div class="p-3">
