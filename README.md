@@ -20,5 +20,4 @@ This project is a **school group project** created as part of our coursework. It
 
 This platform was developed collaboratively by a student group to practice and demonstrate full-stack web development skills.
 
-## 📁 Project Structure
 
