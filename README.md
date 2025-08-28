@@ -38,7 +38,7 @@ StreamMuse helps cinephiles discover movies and series, track favorites, share r
 * XAMPP (for local development)
 
 ### Steps
-````markdown
+
 ```bash
 # Clone repository
 git clone https://github.com/your-username/streammuse.git
@@ -106,5 +106,4 @@ Visit [http://localhost:8000](http://localhost:8000) to explore StreamMuse.
 Contributions are welcome! Open an issue or submit a pull request.
 Please follow Laravel coding standards and write clean, tested code.
 
-```
-```
+
