@@ -1,4 +1,4 @@
-````markdown
+
 # StreamMuse: Your Movie & Series Companion 🎬
 
 ![StreamMuse Logo](public/img/LogoD.png)
@@ -38,7 +38,7 @@ StreamMuse helps cinephiles discover movies and series, track favorites, share r
 * XAMPP (for local development)
 
 ### Steps
-
+````markdown
 ```bash
 # Clone repository
 git clone https://github.com/your-username/streammuse.git
