@@ -41,7 +41,7 @@ StreamMuse helps cinephiles discover movies and series, track favorites, share r
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username/streammuse.git
+git clone https://github.com/mariammouh/streammuse.git
 cd streammuse
 
 # Install dependencies
